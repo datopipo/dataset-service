@@ -1,3 +1,5 @@
+FROM php:7.4-apache
+
 # Install Apache
 RUN apt-get update && \
     apt-get install -y apache2
