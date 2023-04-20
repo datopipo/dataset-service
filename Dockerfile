@@ -1,5 +1,4 @@
 FROM php:7.4-apache
-
 # Install Apache
 RUN apt-get update && \
     apt-get install -y apache2
@@ -7,6 +6,13 @@ RUN apt-get update && \
 # Enable Apache modules
 RUN a2enmod rewrite && \
     a2enmod headers
+
+# Install Node.js and npm
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
+    apt-get install -y nodejs
+
+# Install the default MySQL client
+RUN apt-get install -y default-mysql-client
 
 # Update Apache configuration
 COPY docker/apache2.conf /etc/apache2/sites-available/000-default.conf
@@ -33,9 +39,6 @@ RUN composer install --no-dev --no-scripts --no-autoloader && \
     php artisan config:cache && \
     php artisan route:cache && \
     php artisan view:cache
-
-# Run migrations
-RUN php artisan migrate
 
 # Expose port 80 for Apache
 EXPOSE 80
