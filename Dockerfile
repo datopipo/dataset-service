@@ -1,36 +1,16 @@
-# Base image
-FROM php:7.4-apache
-
-# Update packages and install necessary dependencies
+# Install Apache
 RUN apt-get update && \
-    apt-get install -y \
-        git \
-        zip \
-        unzip \
-        libmcrypt-dev \
-        libjpeg-dev \
-        libpng-dev \
-        libfreetype6-dev \
-        libbz2-dev \
-        libzip-dev \
-        libonig-dev \
-        libxml2-dev \
-        libcurl4-openssl-dev \
-        libssl-dev \
-        mysql-client \
-        && docker-php-ext-install \
-        pdo_mysql \
-        bcmath \
-        ctype \
-        fileinfo \
-        json \
-        mbstring \
-        xml \
-        curl \
-        zip
+    apt-get install -y apache2
 
-# Set working directory
-WORKDIR /com.docker.devenvironments.code
+# Enable Apache modules
+RUN a2enmod rewrite && \
+    a2enmod headers
+
+# Update Apache configuration
+COPY docker/apache2.conf /etc/apache2/sites-available/000-default.conf
+
+# Set the working directory
+WORKDIR /var/www/html
 
 # Copy the Laravel app to the working directory
 COPY . .
@@ -56,7 +36,7 @@ RUN composer install --no-dev --no-scripts --no-autoloader && \
 RUN php artisan migrate
 
 # Expose port 80 for Apache
-EXPOSE 8000
+EXPOSE 80
 
-# Start Apache and serve the Laravel app
-CMD php artisan serve --host=127.0.0.1 --port=8000
+# Start Apache
+CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
