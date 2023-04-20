@@ -56,7 +56,7 @@ RUN composer install --no-dev --no-scripts --no-autoloader && \
 RUN php artisan migrate
 
 # Expose port 80 for Apache
-EXPOSE 80
+EXPOSE 8000
 
 # Start Apache and serve the Laravel app
-CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
+CMD php artisan serve --host=127.0.0.1 --port=8000
