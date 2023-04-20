@@ -30,7 +30,7 @@ RUN apt-get update && \
         zip
 
 # Set working directory
-WORKDIR /var/www/html
+WORKDIR /com.docker.devenvironments.code
 
 # Copy the Laravel app to the working directory
 COPY . .
