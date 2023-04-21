@@ -10,6 +10,8 @@ Create Database called dataset
 
 php artisan:migrate
 
+also place dataset.csv file into public dir i removed it cause public repo
+
 npm install
 
 run npm dev
