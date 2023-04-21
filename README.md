@@ -9,38 +9,33 @@ Installation
 Clone this repository to your local machine:
 
 bash
-Copy code
 git clone https://github.com/datopipo/davits-test-task.git
+
+
 Update the .env file to connect to your MySQL database:
 
-makefile
-Copy code
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=dataset
 DB_USERNAME=[your-username]
 DB_PASSWORD=[your-password]
+
 Create a new database called dataset in your MySQL server.
 
 Run the migration command to create the necessary database tables:
 
-Copy code
 php artisan migrate
+
 Place the dataset.csv file into the public directory of the project.
 
 Install the necessary JavaScript packages:
-
-Copy code
 npm install
+
 Run the development server:
-
-arduino
-Copy code
 npm run dev
+
 Once you've completed these steps, you should be able to view the project by visiting http://localhost:8000 in your web browser.
-
-
 
 
 
